@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>부수입 인증 · 메이크머니 해빗챌린지</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="income">
+<main>
+  <div class="card">
+    <h2>이번 달 부수입 합계</h2>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="num" id="monthTotal">-</div>
+        <div class="label">이번 달 총 부수입</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="monthCount">-</div>
+        <div class="label">인증 횟수</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>부수입 인증하기 💵</h2>
+    <form id="incomeForm">
+      <div class="field">
+        <label>닉네임</label>
+        <input type="text" id="nickname" placeholder="챌린지 닉네임" required />
+      </div>
+
+      <div class="field">
+        <label>부수입 금액</label>
+        <input type="number" id="amount" inputmode="numeric" placeholder="예: 15000" min="0" required />
+      </div>
+
+      <div class="field">
+        <label>출처 <span class="hint">(어떤 활동이었나요?)</span></label>
+        <input type="text" id="source" placeholder="예: 설문조사 앱, 중고거래, 블로그 수익 등" />
+      </div>
+
+      <div class="field">
+        <label>인증 사진 <span class="hint">(선택)</span></label>
+        <div class="file-input-wrap">
+          <input type="file" id="photo" accept="image/*" capture="environment" />
+          <img id="photoPreview" class="photo-preview" alt="미리보기" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>한줄 메모</label>
+        <textarea id="memo" placeholder="후기나 노하우를 남겨주세요"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-secondary">부수입 인증하기 💰</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>최근 부수입 인증</h2>
+    <div id="entryList">
+      <p class="empty-msg">불러오는 중...</p>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/income.js"></script>
+</body>
+</html>

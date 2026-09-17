@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>메이크머니 해빗챌린지</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="home">
+<main>
+  <div class="notice" id="welcomeNotice" style="display:none;"></div>
+
+  <div class="card">
+    <h2>오늘의 인증 현황 <span class="sub" id="todayDateLabel"></span></h2>
+    <ul class="today-list" id="todayList">
+      <li class="empty-msg">불러오는 중...</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>이번 달 요약</h2>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="num" id="monthCertCount">-</div>
+        <div class="label">가계부 인증</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="monthSideIncome">-</div>
+        <div class="label">부수입 합계</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="monthSpend">-</div>
+        <div class="label">지출 합계</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔥 연속 인증일수 순위</h2>
+    <ul class="rank-list" id="streakRank">
+      <li class="empty-msg">불러오는 중...</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>이번 달 참여왕</h2>
+    <ul class="rank-list" id="countRank">
+      <li class="empty-msg">불러오는 중...</li>
+    </ul>
+  </div>
+
+  <a href="daily.html" class="btn">오늘의 가계부 인증하기 ✍️</a>
+</main>
+
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

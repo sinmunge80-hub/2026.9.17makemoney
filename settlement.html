@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>주간·월간 결산 · 메이크머니 해빗챌린지</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="settlement">
+<main>
+  <div class="tabs">
+    <button id="tabWeekly" class="active">📅 주간 결산</button>
+    <button id="tabMonthly">🗓️ 월간 결산</button>
+  </div>
+
+  <div class="card">
+    <h2 id="periodTitle">이번 주 결산 <span class="sub" id="periodLabel"></span></h2>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="num" id="certCount">-</div>
+        <div class="label">인증 횟수</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="totalSpend">-</div>
+        <div class="label">총 지출</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="totalSideIncome">-</div>
+        <div class="label">부수입 합계</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>참여자별 인증 현황</h2>
+    <ul class="rank-list" id="participantList">
+      <li class="empty-msg">불러오는 중...</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="formTitle">주간 결산 인증하기</h2>
+    <form id="settlementForm">
+      <div class="field">
+        <label>닉네임</label>
+        <input type="text" id="nickname" placeholder="챌린지 닉네임" required />
+      </div>
+
+      <div class="field">
+        <label>결산 사진 <span class="hint">(선택, 가계부 앱 캡처 등)</span></label>
+        <div class="file-input-wrap">
+          <input type="file" id="photo" accept="image/*" capture="environment" />
+          <img id="photoPreview" class="photo-preview" alt="미리보기" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label id="memoLabel">이번 주 소감 / 다음 주 다짐</label>
+        <textarea id="memo" placeholder="결산 소감을 남겨주세요"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-secondary">결산 인증하기 🏁</button>
+    </form>
+  </div>
+</main>
+
+<script type="module" src="js/settlement.js"></script>
+</body>
+</html>

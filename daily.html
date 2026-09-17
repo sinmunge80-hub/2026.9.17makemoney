@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>일일 가계부 인증 · 메이크머니 해빗챌린지</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="daily">
+<main>
+  <div class="card">
+    <h2>오늘의 가계부 인증 <span class="sub" id="dateLabel"></span></h2>
+    <form id="dailyForm">
+      <div class="field">
+        <label>닉네임</label>
+        <input type="text" id="nickname" placeholder="챌린지 닉네임" required />
+      </div>
+
+      <div class="field">
+        <label>오늘 지출 총액 <span class="hint">(숫자만, 없으면 0)</span></label>
+        <input type="number" id="spend" inputmode="numeric" placeholder="예: 23000" min="0" />
+      </div>
+
+      <div class="field">
+        <label>가계부 사진 <span class="hint">(선택)</span></label>
+        <div class="file-input-wrap">
+          <input type="file" id="photo" accept="image/*" capture="environment" />
+          <img id="photoPreview" class="photo-preview" alt="미리보기" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>한줄 소감 / 메모</label>
+        <textarea id="memo" placeholder="오늘 지출에서 아낀 점, 다짐 한마디를 남겨보세요"></textarea>
+      </div>
+
+      <button type="submit" class="btn">인증하기 🙌</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>최근 인증 기록</h2>
+    <div id="entryList">
+      <p class="empty-msg">불러오는 중...</p>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/daily.js"></script>
+</body>
+</html>
