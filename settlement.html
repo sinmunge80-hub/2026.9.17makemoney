@@ -66,6 +66,19 @@
       <button type="submit" class="btn btn-secondary">결산 인증하기 🏁</button>
     </form>
   </div>
+
+  <div class="notice" id="aiKeyNotice" style="display:none;">
+    🔑 인증 후 AI 응원 댓글을 받고 싶다면 <a href="settings.html">설정</a>에서 Gemini API 키를 등록해주세요.
+  </div>
+
+  <div class="card ai-card" id="aiCard" style="display:none;">
+    <h2>🤖 AI 응원 댓글</h2>
+    <div class="ai-content" id="aiContent"></div>
+    <div class="ai-actions">
+      <button type="button" id="aiCopyBtn" class="btn btn-outline">복사하기</button>
+      <button type="button" id="aiRetryBtn" class="btn btn-outline">다시 받기</button>
+    </div>
+  </div>
 </main>
 
 <script type="module" src="js/settlement.js"></script>

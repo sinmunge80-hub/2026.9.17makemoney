@@ -81,7 +81,10 @@ export function renderShell(activePage, title) {
   header.innerHTML = `
     <div class="app-header-top">
       <h1>${title}</h1>
-      ${cloudBadge}
+      <div class="header-actions">
+        ${cloudBadge}
+        <a href="settings.html" class="gear-btn" aria-label="설정">⚙️</a>
+      </div>
     </div>
   `;
   document.body.prepend(header);

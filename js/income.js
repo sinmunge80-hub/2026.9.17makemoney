@@ -8,8 +8,14 @@ import {
   monthOf,
   showToast,
 } from "./app.js";
+import { buildIncomePrompt } from "./gemini.js";
+import { setupAIWidget, requestAIComment, wireRetry } from "./ai-widget.js";
 
 renderShell("income", "부수입 인증");
+setupAIWidget();
+
+let lastEntryData = null;
+wireRetry(() => buildIncomePrompt(lastEntryData));
 
 const today = todayStr();
 document.getElementById("nickname").value = getNickname();
@@ -55,6 +61,8 @@ document.getElementById("incomeForm").addEventListener("submit", async (e) => {
       selectedFile
     );
     showToast("부수입 인증 완료! 오늘도 한 걸음 더 🚀");
+    lastEntryData = { nickname, amount: Number(amount), source, memo };
+    requestAIComment(() => buildIncomePrompt(lastEntryData));
     document.getElementById("amount").value = "";
     document.getElementById("source").value = "";
     document.getElementById("memo").value = "";

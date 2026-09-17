@@ -134,6 +134,31 @@ body {
   color: #fff;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  text-decoration: none;
+  font-size: 14px;
+  backdrop-filter: blur(6px);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.gear-btn:active {
+  transform: scale(0.9);
+}
+
 main {
   max-width: 480px;
   margin: 0 auto;
@@ -647,4 +672,98 @@ input[type="file"] {
   margin-bottom: 16px;
   line-height: 1.5;
   font-weight: 500;
+}
+
+.notice a {
+  color: var(--color-primary-dark);
+  font-weight: 700;
+}
+
+/* AI 응원 댓글 카드 */
+.ai-card {
+  border: 1.5px solid var(--color-primary);
+  background: linear-gradient(180deg, var(--color-primary-soft), var(--color-card) 55%);
+}
+
+.ai-content {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--color-text);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ai-content.ai-loading {
+  color: var(--color-text-sub);
+  font-style: italic;
+}
+
+.ai-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ai-actions .btn {
+  flex: 1;
+}
+
+/* settings 페이지 */
+.desc-text {
+  font-size: 13.5px;
+  color: var(--color-text-sub);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.key-input-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.key-input-wrap input {
+  flex: 1;
+}
+
+.icon-btn {
+  width: 46px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.settings-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.settings-actions .btn {
+  flex: 1;
+}
+
+.btn-danger-outline {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.guide-list {
+  margin: 0 0 14px;
+  padding-left: 20px;
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: var(--color-text);
+}
+
+.guide-list a {
+  color: var(--color-primary-dark);
+  font-weight: 700;
 }

@@ -11,8 +11,14 @@ import {
   monthLabel,
   showToast,
 } from "./app.js";
+import { buildSettlementPrompt } from "./gemini.js";
+import { setupAIWidget, requestAIComment, wireRetry } from "./ai-widget.js";
 
 renderShell("settlement", "주간·월간 결산");
+setupAIWidget();
+
+let lastEntryData = null;
+wireRetry(() => buildSettlementPrompt(lastEntryData));
 
 const today = todayStr();
 const wr = weekRange(today);
@@ -142,6 +148,19 @@ document
           ? "이번 주 결산 인증 완료! 수고하셨어요 🏁"
           : "이번 달 결산 인증 완료! 대단해요 🎊"
       );
+
+      const myDaily = allEntries.filter(
+        (en) => en.category === "daily" && en.nickname === nickname && inPeriod(en.date)
+      );
+      lastEntryData = {
+        nickname,
+        periodLabel: mode === "weekly" ? weekLabel(wr) : monthLabel(ym),
+        count: myDaily.length,
+        totalSpend: myDaily.reduce((s, en) => s + (Number(en.spend) || 0), 0),
+        memo,
+      };
+      requestAIComment(() => buildSettlementPrompt(lastEntryData));
+
       document.getElementById("memo").value = "";
       photoInput.value = "";
       selectedFile = null;

@@ -7,8 +7,14 @@ import {
   todayStr,
   showToast,
 } from "./app.js";
+import { buildDailyPrompt } from "./gemini.js";
+import { setupAIWidget, requestAIComment, wireRetry } from "./ai-widget.js";
 
 renderShell("daily", "일일 가계부 인증");
+setupAIWidget();
+
+let lastEntryData = null;
+wireRetry(() => buildDailyPrompt(lastEntryData));
 
 const today = todayStr();
 document.getElementById("dateLabel").textContent = `(${today})`;
@@ -53,6 +59,8 @@ document.getElementById("dailyForm").addEventListener("submit", async (e) => {
       selectedFile
     );
     showToast("인증 완료! 오늘도 수고하셨어요 🎉");
+    lastEntryData = { nickname, spend: spend === "" ? 0 : Number(spend), memo };
+    requestAIComment(() => buildDailyPrompt(lastEntryData));
     document.getElementById("memo").value = "";
     document.getElementById("spend").value = "";
     photoInput.value = "";
