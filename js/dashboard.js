@@ -9,7 +9,7 @@ import {
   monthOf,
 } from "./app.js";
 
-renderShell("home", "메이크머니 해빗챌린지");
+renderShell("challenge", "챌린지 홈");
 
 const nick = getNickname();
 const notice = document.getElementById("welcomeNotice");

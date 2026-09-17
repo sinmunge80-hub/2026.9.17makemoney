@@ -64,7 +64,7 @@ export function weekLabel(range) {
 }
 
 const NAV_ITEMS = [
-  { page: "home", href: "index.html", icon: "🏠", label: "홈" },
+  { page: "challenge", href: "challenge.html", icon: "🏠", label: "챌린지" },
   { page: "daily", href: "daily.html", icon: "✅", label: "일일인증" },
   { page: "settlement", href: "settlement.html", icon: "📊", label: "결산" },
   { page: "income", href: "income.html", icon: "💵", label: "부수입" },
@@ -80,7 +80,7 @@ export function renderShell(activePage, title) {
   header.className = "app-header";
   header.innerHTML = `
     <div class="app-header-top">
-      <h1>${title}</h1>
+      <h1><a href="index.html">${title}</a></h1>
       <div class="header-actions">
         ${cloudBadge}
         <a href="settings.html" class="gear-btn" aria-label="설정">⚙️</a>
