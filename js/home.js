@@ -24,6 +24,15 @@ document.getElementById("aboutStats").innerHTML = PROFILE.about.stats
   .map((label) => `<span class="stat-pill">${escapeHtml(label)}</span>`)
   .join("");
 
+if (PROFILE.about.book) {
+  document.getElementById("bookBadge").textContent = PROFILE.about.book.badge;
+  document.getElementById("bookTitle").textContent = PROFILE.about.book.title;
+  document.getElementById("bookDesc").textContent = PROFILE.about.book.desc;
+  document.getElementById("bookCard").href = escapeAttr(PROFILE.about.book.url);
+} else {
+  document.getElementById("bookCard").remove();
+}
+
 document.getElementById("socialGrid").innerHTML = PROFILE.socialLinks
   .map(
     (link) => `

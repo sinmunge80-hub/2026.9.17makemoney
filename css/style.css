@@ -861,6 +861,62 @@ input[type="file"] {
   background: var(--color-card);
 }
 
+.book-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--color-accent-light);
+  border: 1px solid #e6d3a3;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.book-emoji {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.book-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-dark);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.book-body strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 5px;
+}
+
+.book-body p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #5c5442;
+  line-height: 1.55;
+}
+
+.book-card .arrow {
+  color: #c7ad74;
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 .social-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
