@@ -23,9 +23,30 @@ export const PROFILE = {
 
   // 소셜/외부 링크 — url을 실제 주소로 바꿔주세요 ("#"는 미연결 상태)
   socialLinks: [
-    { emoji: "✍️", title: "블로그", desc: "재테크·가계부 이야기", url: "#" },
-    { emoji: "🍊", title: "브런치스토리", desc: "조금 더 깊은 글", url: "#" },
-    { emoji: "🧵", title: "Threads", desc: "짧은 일상과 생각", url: "#" },
+    {
+      emoji: "✍️",
+      title: "블로그",
+      desc: "재테크·가계부 이야기",
+      url: "https://blog.naver.com/sinmunge",
+    },
+    {
+      emoji: "📸",
+      title: "인스타그램",
+      desc: "짧은 일상과 소식",
+      url: "https://www.instagram.com/makemoney_912/",
+    },
+    {
+      emoji: "🧵",
+      title: "Threads",
+      desc: "짧은 일상과 생각",
+      url: "https://www.threads.com/@makemoney_912",
+    },
+    {
+      emoji: "🍊",
+      title: "브런치",
+      desc: "조금 더 깊은 글",
+      url: "https://brunch.co.kr/@b75d4d64b4ff471",
+    },
     { emoji: "💬", title: "챌린지 오픈채팅", desc: "함께 인증하기", url: "#" },
   ],
 
