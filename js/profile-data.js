@@ -26,7 +26,7 @@ export const PROFILE = {
       badge: "공저 도서",
       title: "진짜 인생은 퇴근후에 시작된다",
       desc: "워킹맘, 직장인의 현실적인 퇴근 후 시간 활용과 자기계발 이야기를 담은 책에 공저자로 참여했어요.",
-      url: "#",
+      url: "https://www.yes24.com/product/goods/192115355",
     },
   },
 
