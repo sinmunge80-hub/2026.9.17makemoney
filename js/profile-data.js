@@ -12,6 +12,8 @@ export const PROFILE = {
 
   // 소개 섹션
   about: {
+    // 프로필 이미지 (img/ 폴더에 파일을 넣고 경로를 지정하세요). 비워두면 avatarEmoji가 대신 표시됩니다.
+    avatarImage: "img/profile.webp",
     avatarEmoji: "🌿",
     bio: [
       "안녕하세요, 메이크머니 해빗챌린지를 운영하는 메이크머니입니다. 병원에서 수간호사로 일하며 바쁜 일상 속에서도 돈을 공부하고, 모으고, 새로운 수입을 만들어가는 과정을 직접 경험해왔습니다.",

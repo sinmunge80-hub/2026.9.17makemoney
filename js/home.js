@@ -6,7 +6,14 @@ document.getElementById("heroKicker").textContent = PROFILE.kicker;
 document.getElementById("heroName").textContent = PROFILE.name;
 document.getElementById("heroDesc").textContent = PROFILE.heroDesc;
 
-document.getElementById("aboutAvatar").textContent = PROFILE.about.avatarEmoji;
+const avatarEl = document.getElementById("aboutAvatar");
+if (PROFILE.about.avatarImage) {
+  avatarEl.innerHTML = `<img src="${escapeAttr(PROFILE.about.avatarImage)}" alt="${escapeAttr(
+    PROFILE.name
+  )} 프로필" />`;
+} else {
+  avatarEl.textContent = PROFILE.about.avatarEmoji;
+}
 const bioParagraphs = Array.isArray(PROFILE.about.bio)
   ? PROFILE.about.bio
   : [PROFILE.about.bio];
