@@ -40,7 +40,11 @@ document.getElementById("dailyForm").addEventListener("submit", async (e) => {
   if (!nickname) return;
   setNickname(nickname);
 
-  const spend = document.getElementById("spend").value;
+  const fixedSpendVal = document.getElementById("fixedSpend").value;
+  const variableSpendVal = document.getElementById("variableSpend").value;
+  const fixedSpend = fixedSpendVal === "" ? 0 : Number(fixedSpendVal);
+  const variableSpend = variableSpendVal === "" ? 0 : Number(variableSpendVal);
+  const spend = fixedSpend + variableSpend;
   const memo = document.getElementById("memo").value.trim();
 
   const submitBtn = e.target.querySelector("button[type=submit]");
@@ -53,16 +57,19 @@ document.getElementById("dailyForm").addEventListener("submit", async (e) => {
         nickname,
         category: "daily",
         date: today,
-        spend: spend === "" ? 0 : Number(spend),
+        spend,
+        fixedSpend,
+        variableSpend,
         memo,
       },
       selectedFile
     );
     showToast("인증 완료! 오늘도 수고하셨어요 🎉");
-    lastEntryData = { nickname, spend: spend === "" ? 0 : Number(spend), memo };
+    lastEntryData = { nickname, spend, memo };
     requestAIComment(() => buildDailyPrompt(lastEntryData));
     document.getElementById("memo").value = "";
-    document.getElementById("spend").value = "";
+    document.getElementById("fixedSpend").value = "";
+    document.getElementById("variableSpend").value = "";
     photoInput.value = "";
     selectedFile = null;
     photoPreview.classList.remove("show");
@@ -102,6 +109,13 @@ async function loadRecent() {
             <span>${escapeHtml(e.nickname)}</span>
             <span>${formatWon(e.spend)}</span>
           </div>
+          ${
+            e.fixedSpend != null || e.variableSpend != null
+              ? `<div class="entry-breakdown">고정 ${formatWon(
+                  e.fixedSpend || 0
+                )} · 변동 ${formatWon(e.variableSpend || 0)}</div>`
+              : ""
+          }
           ${e.memo ? `<div class="entry-memo">${escapeHtml(e.memo)}</div>` : ""}
           <div class="entry-meta">${e.date}</div>
         </div>

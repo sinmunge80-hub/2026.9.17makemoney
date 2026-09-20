@@ -452,6 +452,12 @@ input[type="file"] {
   line-height: 1.4;
 }
 
+.entry-breakdown {
+  font-size: 11.5px;
+  color: var(--color-text-sub);
+  margin-top: 3px;
+}
+
 .entry-meta {
   font-size: 11px;
   color: #a39d8c;

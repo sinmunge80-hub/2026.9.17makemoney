@@ -69,6 +69,8 @@ function render() {
   );
 
   const totalSpend = daily.reduce((s, e) => s + (Number(e.spend) || 0), 0);
+  const totalFixed = daily.reduce((s, e) => s + (Number(e.fixedSpend) || 0), 0);
+  const totalVariable = daily.reduce((s, e) => s + (Number(e.variableSpend) || 0), 0);
   const totalSideIncome = income.reduce(
     (s, e) => s + (Number(e.sideIncomeAmount) || 0),
     0
@@ -77,6 +79,10 @@ function render() {
   document.getElementById("certCount").textContent = `${daily.length}건`;
   document.getElementById("totalSpend").textContent = formatWon(totalSpend);
   document.getElementById("totalSideIncome").textContent = formatWon(totalSideIncome);
+  document.getElementById("spendBreakdown").textContent =
+    daily.length > 0
+      ? `고정지출 ${formatWon(totalFixed)} · 변동지출 ${formatWon(totalVariable)}`
+      : "";
 
   const byNick = {};
   daily.forEach((e) => {
