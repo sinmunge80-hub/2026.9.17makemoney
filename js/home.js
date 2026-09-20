@@ -7,7 +7,12 @@ document.getElementById("heroName").textContent = PROFILE.name;
 document.getElementById("heroDesc").textContent = PROFILE.heroDesc;
 
 document.getElementById("aboutAvatar").textContent = PROFILE.about.avatarEmoji;
-document.getElementById("aboutBio").textContent = PROFILE.about.bio;
+const bioParagraphs = Array.isArray(PROFILE.about.bio)
+  ? PROFILE.about.bio
+  : [PROFILE.about.bio];
+document.getElementById("aboutBio").innerHTML = bioParagraphs
+  .map((p) => `<p>${escapeHtml(p)}</p>`)
+  .join("");
 document.getElementById("aboutStats").innerHTML = PROFILE.about.stats
   .map((label) => `<span class="stat-pill">${escapeHtml(label)}</span>`)
   .join("");

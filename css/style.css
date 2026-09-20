@@ -816,6 +816,14 @@ input[type="file"] {
   align-items: start;
 }
 
+.bio-text p {
+  margin: 0 0 14px;
+}
+
+.bio-text p:last-child {
+  margin-bottom: 0;
+}
+
 .about-avatar {
   width: 88px;
   height: 88px;
