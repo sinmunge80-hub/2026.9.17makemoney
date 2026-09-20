@@ -10,6 +10,7 @@ import {
 } from "./app.js";
 import { buildIncomePrompt } from "./gemini.js";
 import { setupAIWidget, requestAIComment, wireRetry } from "./ai-widget.js";
+import { INCOME_CATEGORIES, categoryLabel } from "./income-categories.js";
 
 renderShell("income", "부수입 인증");
 setupAIWidget();
@@ -19,6 +20,11 @@ wireRetry(() => buildIncomePrompt(lastEntryData));
 
 const today = todayStr();
 document.getElementById("nickname").value = getNickname();
+
+const categorySelect = document.getElementById("category");
+categorySelect.innerHTML = INCOME_CATEGORIES.map(
+  (c) => `<option value="${c.id}">${escapeHtml(c.label)}</option>`
+).join("");
 
 const photoInput = document.getElementById("photo");
 const photoPreview = document.getElementById("photoPreview");
@@ -42,6 +48,7 @@ document.getElementById("incomeForm").addEventListener("submit", async (e) => {
   setNickname(nickname);
 
   const source = document.getElementById("source").value.trim();
+  const incomeCategory = categorySelect.value;
   const memo = document.getElementById("memo").value.trim();
 
   const submitBtn = e.target.querySelector("button[type=submit]");
@@ -56,6 +63,7 @@ document.getElementById("incomeForm").addEventListener("submit", async (e) => {
         date: today,
         sideIncomeAmount: Number(amount),
         sideIncomeSource: source,
+        incomeCategory,
         memo,
       },
       selectedFile
@@ -92,6 +100,8 @@ async function run() {
   document.getElementById("monthTotal").textContent = formatWon(monthTotal);
   document.getElementById("monthCount").textContent = `${monthEntries.length}건`;
 
+  renderCategoryChart(monthEntries, monthTotal);
+
   const list = incomeEntries.sort((a, b) => b.createdAt - a.createdAt).slice(0, 15);
   const el = document.getElementById("entryList");
   if (list.length === 0) {
@@ -112,13 +122,56 @@ async function run() {
             <span>${escapeHtml(e.nickname)}</span>
             <span>+${formatWon(e.sideIncomeAmount)}</span>
           </div>
-          <div class="entry-memo">${escapeHtml(e.sideIncomeSource || "")}${
+          <div class="entry-memo">
+            ${
+              e.incomeCategory
+                ? `<span class="entry-tag" style="background:var(--cat-${e.incomeCategory})">${escapeHtml(
+                    categoryLabel(e.incomeCategory)
+                  )}</span> `
+                : ""
+            }${escapeHtml(e.sideIncomeSource || "")}${
         e.memo ? " · " + escapeHtml(e.memo) : ""
       }</div>
           <div class="entry-meta">${e.date}</div>
         </div>
       </div>`
     )
+    .join("");
+}
+
+function renderCategoryChart(monthEntries, monthTotal) {
+  const totals = {};
+  monthEntries.forEach((e) => {
+    const id = e.incomeCategory || "etc";
+    totals[id] = (totals[id] || 0) + (Number(e.sideIncomeAmount) || 0);
+  });
+
+  const rows = INCOME_CATEGORIES.map((c) => ({ ...c, amount: totals[c.id] || 0 }))
+    .filter((r) => r.amount > 0)
+    .sort((a, b) => b.amount - a.amount);
+
+  const el = document.getElementById("categoryChart");
+  if (rows.length === 0) {
+    el.innerHTML = `<p class="empty-msg">이번 달 부수입 기록이 없어요</p>`;
+    return;
+  }
+
+  el.innerHTML = rows
+    .map((r) => {
+      const pct = monthTotal > 0 ? Math.round((r.amount / monthTotal) * 100) : 0;
+      return `
+        <div class="cat-bar-row">
+          <div class="cat-bar-top">
+            <span class="cat-dot" style="background:var(--cat-${r.id})"></span>
+            <span class="cat-bar-name">${escapeHtml(r.label)}</span>
+            <span class="cat-bar-pct">${pct}%</span>
+          </div>
+          <div class="cat-bar-track">
+            <div class="cat-bar-fill" style="width:${pct}%; background:var(--cat-${r.id})"></div>
+          </div>
+          <div class="cat-bar-amount">${formatWon(r.amount)}</div>
+        </div>`;
+    })
     .join("");
 }
 

@@ -30,6 +30,13 @@
   </div>
 
   <div class="card">
+    <h2>이번 달 카테고리별 비중</h2>
+    <div id="categoryChart">
+      <p class="empty-msg">불러오는 중...</p>
+    </div>
+  </div>
+
+  <div class="card">
     <h2>부수입 인증하기 💵</h2>
     <form id="incomeForm">
       <div class="field">
@@ -40,6 +47,11 @@
       <div class="field">
         <label>부수입 금액</label>
         <input type="number" id="amount" inputmode="numeric" placeholder="예: 15000" min="0" required />
+      </div>
+
+      <div class="field">
+        <label>카테고리</label>
+        <select id="category"></select>
       </div>
 
       <div class="field">
