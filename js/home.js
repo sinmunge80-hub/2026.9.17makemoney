@@ -9,11 +9,7 @@ document.getElementById("heroDesc").textContent = PROFILE.heroDesc;
 document.getElementById("aboutAvatar").textContent = PROFILE.about.avatarEmoji;
 document.getElementById("aboutBio").textContent = PROFILE.about.bio;
 document.getElementById("aboutStats").innerHTML = PROFILE.about.stats
-  .map(
-    (s) => `<span class="stat-pill"><strong>${escapeHtml(s.value)}</strong> ${escapeHtml(
-      s.label
-    )}</span>`
-  )
+  .map((label) => `<span class="stat-pill">${escapeHtml(label)}</span>`)
   .join("");
 
 document.getElementById("socialGrid").innerHTML = PROFILE.socialLinks
