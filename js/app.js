@@ -1,6 +1,6 @@
 // 공통 유틸: 닉네임, 날짜, 포맷, 하단 네비게이션
 import { isCloudMode } from "./db.js";
-import { signInWithGoogle, signOutUser, onAuthChange } from "./auth.js";
+import { signInWithGoogle, signOutUser, onAuthChange, consumeRedirectResult } from "./auth.js";
 
 const NICK_KEY = "mm_nickname";
 const GOOGLE_EMAIL_KEY = "mm_google_email";
@@ -128,6 +128,11 @@ export function wireAuthButton(authBtn, loggedOutLabel = "👤") {
   if (!authBtn) return;
   let currentUser = null;
 
+  // 구글 로그인 화면에서 이 페이지로 막 돌아온 경우, 여기서 결과를 받아요.
+  consumeRedirectResult().then((user) => {
+    if (user) showToast(`${user.displayName}님, 환영해요! 👋`);
+  });
+
   onAuthChange((user) => {
     currentUser = user;
     if (user) {
@@ -155,8 +160,7 @@ export function wireAuthButton(authBtn, loggedOutLabel = "👤") {
       return;
     }
     try {
-      const user = await signInWithGoogle();
-      showToast(`${user.displayName}님, 환영해요! 👋`);
+      await signInWithGoogle(); // 구글 로그인 페이지로 이동합니다 (이후 코드는 보통 실행되지 않음)
     } catch (err) {
       console.error(err);
       showToast("구글 로그인에 실패했어요. 다시 시도해주세요.");

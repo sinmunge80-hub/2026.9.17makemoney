@@ -32,12 +32,27 @@ export function isAuthAvailable() {
   return isFirebaseConfigured;
 }
 
+// 팝업 방식은 모바일 브라우저에서 조용히 차단되는 경우가 많아, 페이지 이동
+// 방식(리다이렉트)을 씁니다. 이 함수를 호출하면 구글 로그인 화면으로
+// 페이지가 이동하고, 로그인 후 다시 이 사이트로 돌아옵니다.
 export async function signInWithGoogle() {
   const ready = await initAuth();
   if (!ready) throw new Error("FIREBASE_NOT_CONFIGURED");
   const provider = new authMod.GoogleAuthProvider();
-  const result = await authMod.signInWithPopup(auth, provider);
-  return result.user;
+  await authMod.signInWithRedirect(auth, provider);
+}
+
+/** 리다이렉트로 돌아온 직후 한 번 호출해 로그인 결과(user|null)를 가져옵니다. */
+export async function consumeRedirectResult() {
+  const ready = await initAuth();
+  if (!ready) return null;
+  try {
+    const result = await authMod.getRedirectResult(auth);
+    return result ? result.user : null;
+  } catch (err) {
+    console.error("구글 로그인 리다이렉트 처리 실패:", err);
+    return null;
+  }
 }
 
 export async function signOutUser() {

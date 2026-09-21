@@ -127,17 +127,35 @@ service cloud.firestore {
 ## 4단계. 배포해서 링크로 공유하기
 
 Firebase에 연결까지 끝났다면, 이제 이 폴더를 무료 호스팅에 올려서
-챌린지원들에게 링크 하나로 공유할 수 있어요. 가장 쉬운 방법은 **Vercel**입니다.
+챌린지원들에게 링크 하나로 공유할 수 있어요. **GitHub Pages**를 추천해요 —
+완전 무료이고, Netlify/Vercel과 달리 빌드 횟수·크레딧 제한이 없어서 이
+사이트처럼 자주 업데이트해도 걱정 없어요.
+
+### GitHub Pages로 배포하기 (추천)
+
+1. 이 저장소 페이지 상단 **Settings** 탭 클릭
+2. 왼쪽 메뉴에서 **Pages** 클릭
+3. **Build and deployment → Source**를 **Deploy from a branch**로 선택
+4. **Branch**를 `main`, 폴더를 `/ (root)`로 선택 → **Save**
+5. 1~2분 기다리면 같은 화면에 `https://<깃허브아이디>.github.io/<저장소이름>/`
+   형태의 주소가 떠요. 이 주소를 단톡방에 공유하면 끝!
+6. 이후 `main` 브랜치에 새 커밋이 올라올 때마다 자동으로 재배포돼요.
+
+> ⚠️ 주소가 바뀌면 **Firebase 콘솔 → Authentication → Settings → 승인된
+> 도메인**에 새 주소의 도메인 부분(예: `깃허브아이디.github.io`)을 꼭
+> 추가해주세요. 안 하면 구글 로그인이 안 돼요.
+
+### Vercel / Netlify를 쓰고 싶다면
+
+두 서비스 모두 무료 플랜이 있지만, 무료 크레딧(빌드 횟수)을 다 쓰면
+새로운 커밋을 올려도 자동 배포가 멈추는 경우가 있어요. 이 경우 화면에
+관련 안내 배너가 뜨는지 확인하시고, 뜬다면 GitHub Pages로 옮기시는 걸
+추천해요.
 
 1. [vercel.com](https://vercel.com) 에서 GitHub 계정으로 가입/로그인
 2. **Add New → Project** → 이 저장소(`2026.9.17makemoney`) 선택 → **Deploy** 클릭
    (프레임워크 설정 없이 그대로 두면 됩니다 — 정적 파일이라 빌드 과정이 필요 없어요)
 3. 배포가 끝나면 `https://your-project.vercel.app` 같은 주소가 생겨요.
-   이 주소를 단톡방에 공유하면 끝!
-4. 이후 이 저장소에 새로운 커밋이 올라올 때마다 자동으로 재배포돼요.
-
-(GitHub Pages를 선호하신다면 저장소 **Settings → Pages**에서 브랜치를
-`main`, 폴더를 `/ (root)`로 지정해도 동일하게 동작합니다.)
 
 ---
 
