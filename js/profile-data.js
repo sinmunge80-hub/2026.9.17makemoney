@@ -5,7 +5,7 @@ export const PROFILE = {
   // 구글 로그인을 쓰신다면 operatorEmail(본인 구글 계정 이메일)을 채워주세요 —
   // 닉네임보다 훨씬 안전하게 운영자를 구분할 수 있어요. 구글 로그인을 안 쓰신다면
   // operatorNickname(인증 페이지에서 실제 쓰시는 닉네임)만 맞춰주셔도 됩니다.
-  operatorEmail: "",
+  operatorEmail: "sinmunge80@gmail.com",
   operatorNickname: "메이크머니",
 
   // 홈 히어로 영역
