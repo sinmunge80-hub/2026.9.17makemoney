@@ -73,6 +73,7 @@ export function weekLabel(range) {
 const NAV_ITEMS = [
   { page: "challenge", href: "challenge.html", icon: "🏠", label: "챌린지" },
   { page: "daily", href: "daily.html", icon: "✅", label: "일일인증" },
+  { page: "mission", href: "mission.html", icon: "🎯", label: "미션" },
   { page: "settlement", href: "settlement.html", icon: "📊", label: "결산" },
   { page: "income", href: "income.html", icon: "💵", label: "부수입" },
   { page: "qna", href: "qna.html", icon: "💬", label: "질문" },
