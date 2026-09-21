@@ -1,6 +1,12 @@
-import { addEntry } from "./db.js";
-import { showToast, todayStr } from "./app.js";
+import { addEntry, isCloudMode } from "./db.js";
+import { showToast, todayStr, wireAuthButton } from "./app.js";
 import { PROFILE } from "./profile-data.js";
+
+if (isCloudMode()) {
+  const authBtn = document.getElementById("authBtn");
+  authBtn.style.display = "";
+  wireAuthButton(authBtn, "로그인");
+}
 
 document.getElementById("heroKicker").textContent = PROFILE.kicker;
 document.getElementById("heroName").textContent = PROFILE.name;

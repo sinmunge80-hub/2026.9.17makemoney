@@ -118,8 +118,13 @@ export function renderShell(activePage, title) {
   if (isCloudMode()) wireAuthButton();
 }
 
-function wireAuthButton() {
-  const authBtn = document.getElementById("authBtn");
+/**
+ * 구글 로그인 버튼을 실제로 동작하게 연결합니다. renderShell()이 자동으로
+ * 호출하지만, index.html(브랜드 홈)처럼 자체 헤더를 쓰는 페이지에서는
+ * 직접 버튼을 만들고 이 함수를 호출하면 됩니다.
+ */
+export function wireAuthButton(authBtn, loggedOutLabel = "👤") {
+  authBtn = authBtn || document.getElementById("authBtn");
   if (!authBtn) return;
   let currentUser = null;
 
@@ -128,14 +133,14 @@ function wireAuthButton() {
     if (user) {
       authBtn.textContent = "";
       authBtn.style.backgroundImage = user.photoURL ? `url(${user.photoURL})` : "";
-      authBtn.style.backgroundSize = "cover";
-      authBtn.style.backgroundPosition = "center";
+      authBtn.classList.toggle("has-photo", !!user.photoURL);
       authBtn.title = `${user.displayName || user.email} · 클릭하면 로그아웃`;
       if (user.displayName) setNickname(user.displayName);
       localStorage.setItem(GOOGLE_EMAIL_KEY, user.email || "");
     } else {
-      authBtn.textContent = "👤";
+      authBtn.textContent = loggedOutLabel;
       authBtn.style.backgroundImage = "";
+      authBtn.classList.remove("has-photo");
       authBtn.title = "구글 로그인";
       localStorage.removeItem(GOOGLE_EMAIL_KEY);
     }
