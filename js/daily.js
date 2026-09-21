@@ -9,6 +9,7 @@ import {
 } from "./app.js";
 import { buildDailyPrompt } from "./gemini.js";
 import { setupAIWidget, requestAIComment, wireRetry } from "./ai-widget.js";
+import { loadCommentsByTarget, renderCommentBlock, wireCommentEvents } from "./comments.js";
 
 renderShell("daily", "일일 가계부 인증");
 setupAIWidget();
@@ -52,7 +53,7 @@ document.getElementById("dailyForm").addEventListener("submit", async (e) => {
   submitBtn.textContent = "저장 중...";
 
   try {
-    await addEntry(
+    const saved = await addEntry(
       {
         nickname,
         category: "daily",
@@ -64,7 +65,11 @@ document.getElementById("dailyForm").addEventListener("submit", async (e) => {
       },
       selectedFile
     );
-    showToast("인증 완료! 오늘도 수고하셨어요 🎉");
+    showToast(
+      saved.photoSkipped
+        ? "인증 완료! 다만 사진 용량이 너무 커서 사진은 저장하지 못했어요 📸"
+        : "인증 완료! 오늘도 수고하셨어요 🎉"
+    );
     lastEntryData = { nickname, spend, memo };
     requestAIComment(() => buildDailyPrompt(lastEntryData));
     document.getElementById("memo").value = "";
@@ -83,19 +88,24 @@ document.getElementById("dailyForm").addEventListener("submit", async (e) => {
   }
 });
 
+const entryList = document.getElementById("entryList");
+wireCommentEvents(entryList, loadRecent);
+
 async function loadRecent() {
-  const entries = await getEntries();
+  const [entries, commentsByTarget] = await Promise.all([
+    getEntries(),
+    loadCommentsByTarget(),
+  ]);
   const list = entries
     .filter((e) => e.category === "daily")
     .sort((a, b) => b.createdAt - a.createdAt)
     .slice(0, 15);
 
-  const el = document.getElementById("entryList");
   if (list.length === 0) {
-    el.innerHTML = `<p class="empty-msg">아직 인증 기록이 없어요.</p>`;
+    entryList.innerHTML = `<p class="empty-msg">아직 인증 기록이 없어요.</p>`;
     return;
   }
-  el.innerHTML = list
+  entryList.innerHTML = list
     .map(
       (e) => `
       <div class="entry-item">
@@ -118,6 +128,7 @@ async function loadRecent() {
           }
           ${e.memo ? `<div class="entry-memo">${escapeHtml(e.memo)}</div>` : ""}
           <div class="entry-meta">${e.date}</div>
+          ${renderCommentBlock(e.id, commentsByTarget[e.id])}
         </div>
       </div>`
     )

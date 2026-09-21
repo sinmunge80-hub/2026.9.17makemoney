@@ -1,7 +1,9 @@
 // 공통 유틸: 닉네임, 날짜, 포맷, 하단 네비게이션
 import { isCloudMode } from "./db.js";
+import { signInWithGoogle, signOutUser, onAuthChange } from "./auth.js";
 
 const NICK_KEY = "mm_nickname";
+const GOOGLE_EMAIL_KEY = "mm_google_email";
 
 export function getNickname() {
   return localStorage.getItem(NICK_KEY) || "";
@@ -9,6 +11,11 @@ export function getNickname() {
 
 export function setNickname(nick) {
   localStorage.setItem(NICK_KEY, nick);
+}
+
+/** 구글 로그인 상태일 때만 값이 있습니다. 질문게시판 등에서 운영자 판별에 씁니다. */
+export function getGoogleEmail() {
+  return localStorage.getItem(GOOGLE_EMAIL_KEY) || "";
 }
 
 export function ensureNickname() {
@@ -68,6 +75,7 @@ const NAV_ITEMS = [
   { page: "daily", href: "daily.html", icon: "✅", label: "일일인증" },
   { page: "settlement", href: "settlement.html", icon: "📊", label: "결산" },
   { page: "income", href: "income.html", icon: "💵", label: "부수입" },
+  { page: "qna", href: "qna.html", icon: "💬", label: "질문" },
   { page: "links", href: "links.html", icon: "🔗", label: "정보허브" },
 ];
 
@@ -76,6 +84,10 @@ export function renderShell(activePage, title) {
     ? `<span class="badge badge-cloud">☁️ 실시간 동기화</span>`
     : `<span class="badge badge-local">📱 로컬 체험 모드</span>`;
 
+  const authSlot = isCloudMode()
+    ? `<button type="button" id="authBtn" class="gear-btn" aria-label="구글 로그인" title="구글 로그인">👤</button>`
+    : "";
+
   const header = document.createElement("header");
   header.className = "app-header";
   header.innerHTML = `
@@ -83,6 +95,7 @@ export function renderShell(activePage, title) {
       <h1><a href="index.html">${title}</a></h1>
       <div class="header-actions">
         ${cloudBadge}
+        ${authSlot}
         <a href="settings.html" class="gear-btn" aria-label="설정">⚙️</a>
       </div>
     </div>
@@ -101,6 +114,49 @@ export function renderShell(activePage, title) {
     </a>`
   ).join("");
   document.body.appendChild(nav);
+
+  if (isCloudMode()) wireAuthButton();
+}
+
+function wireAuthButton() {
+  const authBtn = document.getElementById("authBtn");
+  if (!authBtn) return;
+  let currentUser = null;
+
+  onAuthChange((user) => {
+    currentUser = user;
+    if (user) {
+      authBtn.textContent = "";
+      authBtn.style.backgroundImage = user.photoURL ? `url(${user.photoURL})` : "";
+      authBtn.style.backgroundSize = "cover";
+      authBtn.style.backgroundPosition = "center";
+      authBtn.title = `${user.displayName || user.email} · 클릭하면 로그아웃`;
+      if (user.displayName) setNickname(user.displayName);
+      localStorage.setItem(GOOGLE_EMAIL_KEY, user.email || "");
+    } else {
+      authBtn.textContent = "👤";
+      authBtn.style.backgroundImage = "";
+      authBtn.title = "구글 로그인";
+      localStorage.removeItem(GOOGLE_EMAIL_KEY);
+    }
+  });
+
+  authBtn.addEventListener("click", async () => {
+    if (currentUser) {
+      if (confirm("로그아웃 하시겠어요?")) {
+        await signOutUser();
+        showToast("로그아웃했어요");
+      }
+      return;
+    }
+    try {
+      const user = await signInWithGoogle();
+      showToast(`${user.displayName}님, 환영해요! 👋`);
+    } catch (err) {
+      console.error(err);
+      showToast("구글 로그인에 실패했어요. 다시 시도해주세요.");
+    }
+  });
 }
 
 export function showToast(msg) {

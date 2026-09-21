@@ -19,6 +19,46 @@
     부수입 만들기 링크, 추천 유튜브 채널 등 챌린지에 꼭 필요한 정보를 한곳에 모았어요.
   </div>
   <div id="linkGroups"></div>
+
+  <div class="card">
+    <h2>챌린지원 추천 사이트 💡</h2>
+    <p class="desc-text" style="margin-bottom:14px;">
+      알고 계신 유용한 사이트나 부수입 사이트를 직접 추가해서 함께 공유해요.
+    </p>
+    <form id="communityLinkForm">
+      <div class="field">
+        <label>닉네임</label>
+        <input type="text" id="clNickname" placeholder="챌린지 닉네임" required />
+      </div>
+      <div class="field">
+        <label>사이트 이름</label>
+        <input type="text" id="clTitle" placeholder="예: OO 설문조사 앱" required />
+      </div>
+      <div class="field">
+        <label>링크 주소</label>
+        <input type="text" id="clUrl" placeholder="https://..." required />
+      </div>
+      <div class="field">
+        <label>분류</label>
+        <select id="clCategory">
+          <option value="useful">유용한 사이트</option>
+          <option value="income">부수입 사이트</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>한줄 설명</label>
+        <input type="text" id="clDesc" placeholder="어떤 사이트인지 짧게 소개해주세요" />
+      </div>
+      <button type="submit" class="btn btn-outline">추천 사이트 등록하기</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>챌린지원들이 추천한 사이트</h2>
+    <div id="communityLinkList">
+      <p class="empty-msg">불러오는 중...</p>
+    </div>
+  </div>
 </main>
 
 <script type="module" src="js/links.js"></script>

@@ -140,7 +140,7 @@ document
     submitBtn.textContent = "저장 중...";
 
     try {
-      await addEntry(
+      const saved = await addEntry(
         {
           nickname,
           category: mode, // 'weekly' | 'monthly'
@@ -150,7 +150,9 @@ document
         selectedFile
       );
       showToast(
-        mode === "weekly"
+        saved.photoSkipped
+          ? "결산 인증 완료! 다만 사진 용량이 너무 커서 사진은 저장하지 못했어요 📸"
+          : mode === "weekly"
           ? "이번 주 결산 인증 완료! 수고하셨어요 🏁"
           : "이번 달 결산 인증 완료! 대단해요 🎊"
       );

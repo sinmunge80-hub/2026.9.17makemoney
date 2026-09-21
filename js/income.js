@@ -56,7 +56,7 @@ document.getElementById("incomeForm").addEventListener("submit", async (e) => {
   submitBtn.textContent = "저장 중...";
 
   try {
-    await addEntry(
+    const saved = await addEntry(
       {
         nickname,
         category: "income",
@@ -68,7 +68,11 @@ document.getElementById("incomeForm").addEventListener("submit", async (e) => {
       },
       selectedFile
     );
-    showToast("부수입 인증 완료! 오늘도 한 걸음 더 🚀");
+    showToast(
+      saved.photoSkipped
+        ? "부수입 인증 완료! 다만 사진 용량이 너무 커서 사진은 저장하지 못했어요 📸"
+        : "부수입 인증 완료! 오늘도 한 걸음 더 🚀"
+    );
     lastEntryData = { nickname, amount: Number(amount), source, memo };
     requestAIComment(() => buildIncomePrompt(lastEntryData));
     document.getElementById("amount").value = "";

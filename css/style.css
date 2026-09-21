@@ -130,6 +130,19 @@ body[data-page="home"] {
   gap: 8px;
 }
 
+.badge-operator {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  background: var(--color-accent-light);
+  border: 1px solid #e6d3a3;
+  vertical-align: middle;
+}
+
 .gear-btn {
   display: flex;
   align-items: center;
@@ -141,6 +154,13 @@ body[data-page="home"] {
   text-decoration: none;
   font-size: 13px;
   flex-shrink: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 main {
@@ -488,6 +508,161 @@ input[type="file"] {
   color: #fff;
 }
 
+/* 댓글(응원/피드백) 위젯 */
+.comment-block {
+  margin-top: 8px;
+}
+
+.comment-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.comment-panel {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.comment-item {
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.comment-nickname {
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-right: 5px;
+}
+
+.comment-text {
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.comment-form {
+  display: flex;
+  gap: 6px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 8px 10px !important;
+  font-size: 13px !important;
+}
+
+.comment-submit {
+  width: auto;
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-dark);
+  color: #faf7f0;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.comment-submit:disabled {
+  opacity: 0.5;
+}
+
+/* 질문게시판 */
+.qna-item {
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px 0;
+}
+
+.qna-item:first-child {
+  padding-top: 0;
+}
+
+.qna-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.qna-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.qna-title {
+  font-weight: 700;
+  font-size: 14.5px;
+  flex: 1;
+}
+
+.qna-meta {
+  font-size: 11px;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+}
+
+.qna-author {
+  font-size: 12px;
+  color: var(--color-text-sub);
+  margin-bottom: 6px;
+}
+
+.qna-content {
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 챌린지원 추천 사이트 */
+.community-link-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.community-link-item:last-child {
+  border-bottom: none;
+}
+
+.community-link-item a {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.community-link-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.community-link-meta {
+  font-size: 11.5px;
+  color: var(--color-text-sub);
+  margin-top: 2px;
+}
+
 /* 부수입 카테고리 비중 (수평 바) */
 .cat-bar-row {
   margin-bottom: 14px;
@@ -629,11 +804,12 @@ input[type="file"] {
   flex-direction: column;
   align-items: center;
   gap: 3px;
-  padding: 10px 0 8px;
+  padding: 9px 0 7px;
   text-decoration: none;
   color: #a39d8c;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 500;
+  white-space: nowrap;
   position: relative;
 }
 

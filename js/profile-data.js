@@ -1,6 +1,13 @@
 // 브랜드 홈페이지(index.html)에 표시할 소개/링크 정보입니다.
 // 아래 값들을 자유롭게 수정하세요. 수정 후 저장하면 바로 반영됩니다.
 export const PROFILE = {
+  // 질문게시판/댓글에서 "운영자" 배지를 붙여줄 기준입니다.
+  // 구글 로그인을 쓰신다면 operatorEmail(본인 구글 계정 이메일)을 채워주세요 —
+  // 닉네임보다 훨씬 안전하게 운영자를 구분할 수 있어요. 구글 로그인을 안 쓰신다면
+  // operatorNickname(인증 페이지에서 실제 쓰시는 닉네임)만 맞춰주셔도 됩니다.
+  operatorEmail: "",
+  operatorNickname: "메이크머니",
+
   // 홈 히어로 영역
   kicker: "MAKE MONEY HABIT",
   name: "메이크머니 해빗챌린지",
